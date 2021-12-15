@@ -62,7 +62,7 @@ The cache size for each individual **topic** is equal to one **message**. Thus, 
 The **client** MAY send **messages** with an empty **payload** to the **broker**. The **broker** MUST NOT forward this **messages** to other **clients**.  
 
 ## Topics
-First of all, the **topic** is represented by a set of [UTF-8](#rfc3629) encoded characters, the size of the **topic** MUST NOT exceed 255 bytes (the NULL character "\0" MUST NOT and, accordingly, the size of the **topic** is not taken into account).  
+First of all, the **topic** is represented by a set of [ASCII](#rfc20) encoded characters, the size of the **topic** MUST NOT exceed 255 bytes (the NULL character "\0" MUST NOT and, accordingly, the size of the **topic** is not taken into account).  
 Semantically, **topics** are divided into several levels separated by a "/" sign, similar to paths in *nix systems or in URIs.  
 If the "/" symbol is at the beginning or end of the **topic**, it MUST be ignored.  
 A **topic** MUST NOT have zero length or consist of only one or more "/" characters.  
@@ -184,6 +184,8 @@ Legend:
 ### RFC2119
 Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997.  
 http://www.ietf.org/rfc/rfc2119.txt  
-### RFC3629
-Yergeau, F., "UTF-8, a transformation format of ISO 10646", STD 63, RFC 3629, November 2003   
-http://www.ietf.org/rfc/rfc3629.txt  
+
+## Non normative references
+### RFC20
+Vint Cerf, "ASCII format for Network Interchange", RFC20, October 16, 1969  
+https://www.ietf.org/rfc/rfc20.txt   
