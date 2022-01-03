@@ -142,8 +142,6 @@ The list of flags included in the header and going in the following order from t
 4) Last will flag
 5) Caching flag
 
-Maximum message size **INCLUDING THE HEADER** should not exceed 64 kilobytes.
-
 The header is followed by the **topic** and the body of the **message** length, respectively.  
 The format of the **message** in graphic form:  
 ```
