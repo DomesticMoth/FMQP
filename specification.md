@@ -59,7 +59,8 @@ The cache size for each individual **topic** is equal to one **message**. Thus, 
 **FMQP** includes a flag that allows the publisher to mark the published **message** as a last will. In this case, the **broker** MUST NOT publish it immediately, but instead MUST publish it after the **client** who sent it disconnects.  
 
 ## Empty messages
-The **client** MAY send **messages** with an empty **payload** to the **broker**. The **broker** MUST NOT forward this **messages** to other **clients**.  
+1) The **broker** MAY send **messages** with an empty **payload** to the **client**.
+2) The **client** MAY send **messages** with an empty **payload** to the **broker**. The **broker** MUST NOT forward this **messages** to other **clients**
 
 ## Topics
 First of all, the **topic** is represented by a set of [ASCII](#rfc20) encoded characters, the size of the **topic** MUST NOT exceed 255 bytes (the NULL character "\0" MUST NOT and, accordingly, the size of the **topic** is not taken into account).  
@@ -118,7 +119,8 @@ In addition, specific **broker** implementations can add their own service **top
 **FMQP** describes, in addition to the main **topic system**, an additional system of feedback **topics** that exists in parallel with it.  
 To distinguish the main **topic** system, a special flag is provided in the **FMQP** **message** structure (more on this later).  
 In this **system of topics**, only the **broker** himself can publish **messages**, any **messages** published in it by **clients** MUST be discarded by the **broker** as incorrect.  
-Whenever any of the **clients** subscribes/unsubscribes to a regular **topic**, the **broker** MUST publish a **message** with the same **topic** and a raised feedback flag.  
+Whenever one of the **clients** unsubscribes from a regular **topic**, the **broker** MUST publish a **message** with the same **topic** and a raised feedback flag, the **body** of which must have zero length.  
+Whenever one of the **clients** subscribes to a regular **topic**, the **broker** MUST publish a **message** with the same **topic** and a raised feedback flag, the **body** of which must have a non-zero length (the content of the body has no length).  
 These **messages** MUST be cached.  
 This mechanism allows publishers to track which **topics** subscribers are interested in.  
 
