@@ -96,20 +96,11 @@ Thus, the following **topics** are considered equivalent to each other:
 When receiving a message from the publisher, the **broker** MUST forward it to all connected **clients** who have subscribed to **topics** equivalent to the topic under which this **message** was published. 
 
 ## Service topics and subscriptions
-There are predefined **topics** to which the **broker** himself can send **messages**. They are called service ones.  
-Service **topics** are distinguished by the fact that they start at the "$" level, for example, "$/signals/stop".  
+There are predefined **topics** to which the **broker** himself can send **messages**. They are called service **topics**.  
+Service **topics** are distinguished by the fact that they start at the "$" level, for example, "$/info/clients".  
 Service **topics** exist for **clients** to communicate directly with the **broker** himself for management purposes, statistics collection, etc.  
 The **broker** MUST NOT forward **messages** published in service **topics** unless it is explicitly stated in the description of their purpose.  
 There are the following **topics** predefined by the protocol specification:  
-+ "$/signals/terminate" - when any **client** publishes any **message** to this **topic**, the **broker** MUST immediately stop its work
-+ "$/signals/stop" - when any **client** publishes any **message** in this **topic**, the **broker** MUST proceed to a "soft" shutdown by sequentially performing the following steps:
-  1) Stop accepting new **clients**
-  2) Stop accepting new **messages** from **clients**
-  3) Wait until subscribers receive all **messages** that have already been published by this time
-  4) Forcibly send all "last wills"
-  5) Wait until all the "wills" are received by the **clients** who have subscribed to them
-  6) Close all **client** connections
-  7) Stop
 + "$/info/clients" - every time the number of **clients** changes, the **broker** MUST send a **message** to this **topic** in which a 64-bit unsigned integer in the Be format is located as a **payload*** - the current number of **clients**. This **message** must be cached
 + "$/info/messages/second" - every second the **broker** must publish a **message** to this **topic** in which a 64-bit unsigned integer in the Be format is located as a **payload** - the number of **messages** received by the **broker** during this second
 
